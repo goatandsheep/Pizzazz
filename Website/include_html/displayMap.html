@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
 
-<p id="demo">Click the button to get your position:</p>
+
 
 <style>
       html, body, #map-canvas {
@@ -25,28 +22,9 @@ var userRadius = 20;
 var eventRadius = 500000;
 var map;
 
-function initialize() {
 
-  var mapOptions = {
-    zoom: 15,
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-	map.setCenter(new google.maps.LatLng(0,0));
-	
-	//Centers the map at the users current location
-        navigator.geolocation.getCurrentPosition(centerMapUser,showError);
-}
 
-function centerMapUser(position){
-	//Centers map at the user's current location
-	userX = position.coords.latitude;
-	userY = position.coords.longitude;
 
-	map.setCenter(new google.maps.LatLng(userX,userY));
-
-	drawCircle(userX, userY, eventRadius);
-}	
 
 function drawCircle(circleX, circleY, circleRadius){
 	var circleCenter = new google.maps.LatLng(circleX, circleY);
@@ -64,6 +42,22 @@ function drawCircle(circleX, circleY, circleRadius){
 
 }
 
+function drawCircleEvent(circleX, circleY, circleRadius){
+	console.log("Circle drawn");
+	var circleCenter = new google.maps.LatLng(circleX, circleY);
+	var options = {
+      		strokeColor: '#FF0000',
+      		strokeOpacity: 0.8,
+      		strokeWeight: 2,
+      		fillColor: '#000000',
+      		fillOpacity: 0.35,
+      		map: map,
+      		center: circleCenter,
+      		radius: circleRadius
+    };
+	circle = new google.maps.Circle(options);
+
+}
 
 function showError(error) {
     switch(error.code) {
@@ -82,13 +76,27 @@ function showError(error) {
     }
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+
+function initialize() {
+
+  var mapOptions = {
+    zoom: 12,
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+	map.setCenter(new google.maps.LatLng(0,0));
+	
+	//Centers the map at the users current location
+        navigator.geolocation.getCurrentPosition(centerMapUser,showError);
+}
 
 
-</script>
-</head>
+function centerMapUser(position){
+	//Centers map at the user's current location
+	userX = position.coords.latitude;
+	userY = position.coords.longitude;
 
- <body>
-    <div id="map-canvas"></div>
-  </body>
-</html>
+	map.setCenter(new google.maps.LatLng(userX,userY));
+
+	drawCircle(userX, userY, eventRadius);
+
