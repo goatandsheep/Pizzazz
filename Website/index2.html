@@ -1,0 +1,15 @@
+<script>
+function initialize() {
+
+  var mapOptions = {
+    zoom: 12,
+  };
+  
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+	map.setCenter(new google.maps.LatLng(0,0));
+	//Centers the map at the users current location
+        navigator.geolocation.getCurrentPosition(centerMapUser,showError);
+initialize()
+</script>
