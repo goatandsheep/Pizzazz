@@ -4,7 +4,6 @@
 
 <p id="demo">Click the button to get your position:</p>
 
-<button onclick="getLocation()">Try It</button>
 <style>
       html, body, #map-canvas {
         height: 100%;
@@ -22,7 +21,8 @@ var eventY = -80;
 var userX;
 var userY;
 
-var userRadius = 500;
+var userRadius = 20;
+var eventRadius = 500000;
 var map;
 
 function initialize() {
@@ -36,17 +36,6 @@ function initialize() {
 	
 	//Centers the map at the users current location
         navigator.geolocation.getCurrentPosition(centerMapUser,showError);
-	drawCircle(eventX, eventY, userRadius);
-}
-
-function getLocation() {
-	//Makes sure the geolocation is working
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(findRadius,showError);
-	//navigator.geolocation.getCurrentPosition(initialize, showError);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
 }
 
 function centerMapUser(position){
@@ -55,26 +44,9 @@ function centerMapUser(position){
 	userY = position.coords.longitude;
 
 	map.setCenter(new google.maps.LatLng(userX,userY));
+
+	drawCircle(userX, userY, eventRadius);
 }	
-
-function findRadius(position) {
-	//var userX = position.coords.latitude;
-	//var userY = position.coords.longitude;
-
-	//For every event in the database
-	if (eventX < userX + userRadius && eventX > userX - userRadius && eventY < userY + userRadius && eventY > userY- userRadius ){
-		var distX = eventX - userX;
-		var distY = eventY - userY;
-		var distR = Math.sqrt(distX^2 + distY^2);
-		if (distR < userRadius){
-			//Add event to the user's search array of events
-		}
-		x.innerHTML = distR;
-	}
-	else {
-		x.innerHTML = "User is not within range";
-	}
-}
 
 function drawCircle(circleX, circleY, circleRadius){
 	var circleCenter = new google.maps.LatLng(circleX, circleY);
@@ -90,8 +62,6 @@ function drawCircle(circleX, circleY, circleRadius){
     };
 	circle = new google.maps.Circle(options);
 
-
-            x.innerHTML = "circle prints"
 }
 
 

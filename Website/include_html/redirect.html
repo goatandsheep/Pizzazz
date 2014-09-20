@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
-<script>
-window.onload = getLocation;
+<script >
+window.onload = getLocation();
 var userX;
 var userY;
 
@@ -23,14 +19,12 @@ function showPosition(position){
 }
 
 function redirect(){
-	window.location.replace("php/map.php?xPos="+userX+"&yPos="+userY);
+	window.location.replace("/php/map.php?xPos="+userX+"&yPos="+userY);
 
 }
 
+while(userX){
+	redirect();
+}
 </script>
 
-</head>
-
-<body>
-</body>
-</html>
