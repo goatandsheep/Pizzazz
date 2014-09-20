@@ -6,38 +6,21 @@
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}     
 	 
-
-	$username = $_POST["username"];
-	$password = $_POST["password"]; 
+	$sessionUsername=strtolower($_SESSION['username']);
+	$sliceName = $_POST["eventName"];
+	$sliceDescription= $_POST["eventDescription"]; 
 
 	
-	
-	$username =  cleanStringFromInjection ($username);
-	$UpperUser= strtoupper($username);
-	$password = cleanStringFromInjection ($password);
+	$evenName=  cleanStringFromInjection ($eventName);
+	$evenName = cleanStringFromInjection ($evenName);
 	$date = (string)date("m/d/Y h:i:s a", time());
-	$passwordHash = create_hash($password);
+	
+	$XPos=123123123;
+	$YPos=123123123;
 	
 	
-	$query = mysqli_query($connection,"SELECT UpperUser FROM Users WHERE UpperUser='".$UpperUser."'");
-	  if (mysqli_num_rows($query) != 0)
-	  { 
-			$_SESSION["loginStatus"]="userExists";
-			header("Location: /index.php");
-	  }
-	
-	  else
-	  {  
-			$addUser="INSERT INTO Users (UpperUser,Pass,SignupDate,Username)   
-			VALUES ('$UpperUser','$passwordHash','$date','$username')";  
-			$result = mysqli_query($connection,$addUser);
-			$_SESSION["username"]=$username;
-			$_SESSION["loginStatus"]="signupGood"; 
-			header("Location: /index.php");
-	  }
-	 
-
-	
+	 $sendSlice = "INSERT INTO Slices (Username,SliceName,SliceDescription,DatePosted,XPos,YPos) VALUES ($sessionUsername,$sliceName,$sliceDescription,$date,$XPos,$YPos)";
+	 mysqli_query($connection,$sendSlice);	
 	
 	
 	
@@ -53,5 +36,5 @@
 		$cleanString =  str_replace("<","",$cleanString);
 		$cleanString =  str_replace(">","",$cleanString); 		
 		return $cleanString;
-}
+	}
 ?>
