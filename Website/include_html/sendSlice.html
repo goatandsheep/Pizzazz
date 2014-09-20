@@ -1,5 +1,37 @@
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script >
+
+	
+	function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition);
+	    } else {
+	        x.innerHTML = "Geolocation is not supported by this browser.";
+	    }
+	}
+	function showPosition(position) {
+	    x.innerHTML = "Latitude: " + position.coords.latitude + 
+	    "<br>Longitude: " + position.coords.longitude; 
+	}		
+
+	function ini2(){
+	
+		var userX="123";
+		var userY="123";
+		var x = document.getElementById("XPos");
+		var y = document.getElementById("YPos");	
+		//getLocation();
+		x.placeholder= "123";
+		y.placeholder= userY;	
+		console.log("done");
+	}	
+</script>
+
+
 <form class="loginForm" action="php/sendSlice.php" method="post">
 	<label>Event Name</label><input type="text" name="eventName">
 	<label>Description</label><input type="text" name="eventDescription"> 
+	<label>XPos</label><input type="text" name="XPos" id="XPos"> 
+	<label>YPos</label><input type="text" name="YPos" id="YPos">  
 	<input type="submit" value="Send">
 </form>
