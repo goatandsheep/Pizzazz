@@ -16,7 +16,7 @@
 	$username =  cleanStringFromInjection ($username);
 	$UpperUser= strtoupper($username);
 	$password = cleanStringFromInjection ($password);
-	$date = (string)date("m/d/Y h:i:s a", time());
+	$date = (string)date("Y-m-d h:i:s a", time());
 	$passwordHash = create_hash($password);
 	
 	

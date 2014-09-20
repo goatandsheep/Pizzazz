@@ -13,7 +13,7 @@
 	
 	$evenName=  cleanStringFromInjection ($eventName);
 	$evenName = cleanStringFromInjection ($evenName);
-	$date = (string)date("m/d/Y h:i:s a", time());
+	$date = (string)date("Y-m-d h:i:s a", time());
 	
 	$XPos=12312312300001;
 	$YPos=12312312300000001;
@@ -21,8 +21,7 @@
 	
 	 $sendSlice = "INSERT INTO Slices (Username,SliceName,SliceDescription,DatePosted,XPos,YPos) VALUES ('$sessionUsername','$sliceName','$sliceDescription','$date','$XPos','$YPos')";
 	 $result = mysqli_query($connection,$sendSlice);	
- 
-			
+	 			
 			
 	function cleanStringFromInjection($dirtyString){
 		$cleanString =  str_replace("'","",$dirtyString);
