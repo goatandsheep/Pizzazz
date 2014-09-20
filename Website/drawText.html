@@ -14,6 +14,12 @@
      border: 2px solid black;
      white-space: wrap;
    }
+
+.scrollFix {
+    line-height: 1.35;
+    overflow: hidden;
+    white-space: nowrap;
+}
  </style>
 
 <style>
@@ -57,12 +63,12 @@ function centerMapUser(position){
 	map.setCenter(userPoint);
 
 
-	drawText('Event Name jjdjdjdjdjdjdjdjdjdjdjdjdj', "<p>This is description</p>", userX, userY);
+	drawText('Event Name jjdjdjdjdjdjdjdjdjdjdjdjdj', "<p>This is description longergjgjgjgjgjgjgjgjgjgjjgjggjgjgjgjgjgjgjgjgjgjgjgjgj</p>", userX, userY);
 }	
 
 
 function drawText(eventName, eventText, eventX, eventY) {
-	
+	//Given event Name, Text, and location will output a text box and pin on google maps at that location with that name and text.
 	
 	eventPoint = new google.maps.LatLng(eventX, eventY);
  var infowindow = new google.maps.InfoWindow({
@@ -80,7 +86,10 @@ function drawText(eventName, eventText, eventX, eventY) {
        labelStyle: {opacity: 0.75}
      });
 
-var textWindow = new google.maps.InfoWindow({content: eventText});
+var textWindow = new google.maps.InfoWindow({
+//Workaround that avoids scroll-bar bug
+	content: '<div class="scrollFix">'+eventText+'</div>'
+});
 
      google.maps.event.addListener(marker, "click", function (e) { textWindow.open(map, this); });
 
