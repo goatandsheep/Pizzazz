@@ -13,9 +13,20 @@
 	    <div class="collapse navbar-collapse">
 	    	<ul class="nav navbar-nav">
 				<form class="loginForm" action="php/login.php" method="post">
-					<input id="usern" type="text" placeholder="username" name="username">
-					<input id="pword" type="password" placeholder="password" name="password"> 
 					<input type="submit" value="Login">
+					<input id="username" type="text" placeholder="username" name="username">
+					<input id="password" type="password" placeholder="password" name="password">
+					<ul class="nav pull-right">
+			        	<li class="dropdown" id="menuLogin">
+			            	<a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Sign up</a>
+			            	<div class="dropdown-menu" style="padding:17px;">
+				            	<form class="form" id="formLogin"> 
+				            		<input name="email" id="email" type="text" placeholder="e-mail address">
+				                	<button type="button" id="btnLogin" class="btn">Sign-up</button>
+				              </form>
+			        		</div>
+			        	</li>
+        			</ul>
 					<link rel="stylesheet" href="mystyle.css">
 				</form>
 	    	</ul>
