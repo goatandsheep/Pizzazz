@@ -12,7 +12,7 @@
      text-align: center;
      width: 40px;     
      border: 2px solid black;
-     white-space: nowrap;
+     white-space: wrap;
    }
  </style>
 
@@ -26,14 +26,13 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js " type="text/javascript"></script>
+
 <script>
 
 var userX;
 var userY;
 var userPoint;
 
-
-var floatingText = "Default Text";
 
 function initialize() {
 
@@ -53,31 +52,37 @@ function centerMapUser(position){
 	userX = position.coords.latitude;
 	userY = position.coords.longitude;
 
-	map.setCenter(new google.maps.LatLng(userX,userY));
 
 	userPoint = new google.maps.LatLng(userX, userY);
+	map.setCenter(userPoint);
 
-	drawText('<div id="content">'+ '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large </p>', userPoint);
+
+	drawText('Event Name jjdjdjdjdjdjdjdjdjdjdjdjdj', "<p>This is description</p>", userX, userY);
 }	
 
 
-function drawText(eventText, eventLocation) {
+function drawText(eventName, eventText, eventX, eventY) {
 	
-
+	
+	eventPoint = new google.maps.LatLng(eventX, eventY);
  var infowindow = new google.maps.InfoWindow({
-      content: eventText
+      content: eventName
   });
 
   var marker = new MarkerWithLabel({
-       position: userPoint,
-       draggable: true,
-       raiseOnDrag: true,
+       position: eventPoint,
+       draggable: false,
+        raiseOnDrag: false,
        map: map,
-       labelContent: "$425K",
-       labelAnchor: new google.maps.Point(userX, userY),
+       labelContent: eventName,
+       labelAnchor: new google.maps.Point(20, 0),
        labelClass: "labels", // the CSS class for the label
        labelStyle: {opacity: 0.75}
      });
+
+var textWindow = new google.maps.InfoWindow({content: eventText});
+
+     google.maps.event.addListener(marker, "click", function (e) { textWindow.open(map, this); });
 
 }
 
