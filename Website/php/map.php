@@ -14,11 +14,14 @@
 	while($row = mysqli_fetch_array($result)) {
 		$eventXPos=$row['XPos'];
 		$eventYPos=$row['YPos'];
+		$eventName=$row['SliceName'];
+		$eventDescription=$row['SliceDescription'];
 		$distanceX=$eventXPos-$userXPos;
 		$distanceY=$eventYPos-$userYPos;
 		$distanceR=sqrt(pow($distanceX,2)+pow($distanceY,2));
 		if($distanceR<$DEFAULT_SEARCH_RADIUS){
 			echo "drawCircleEvent(".$eventXPos.",".$eventYPos.", 1500);";	
+			echo "drawText('".$eventName."', '<p>".$eventDescription."</p>',".$eventXPos.", ".$eventYPos.");";
 		}
 		
 	}	
