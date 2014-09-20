@@ -4,14 +4,13 @@
 <head>
  <style type="text/css">
    .labels {
-     color: red;
-     background-color: white;
-     font-family: "Lucida Grande", "Arial", sans-serif;
-     font-size: 10px;
+     color: #222222;
+     font-family: "Lucida Grande", "Calibri", sans-serif;
+     font-size: 16px;
      font-weight: bold;
      text-align: center;
-     width: 40px;     
-     border: 2px solid black;
+     width: 120px;     
+     border: 2px solid #FFFFFF;
      white-space: wrap;
    }
 
@@ -76,12 +75,13 @@ function drawText(eventName, eventText, eventX, eventY) {
   });
 
   var marker = new MarkerWithLabel({
+	//Anchor is offset of label
        position: eventPoint,
        draggable: false,
         raiseOnDrag: false,
        map: map,
        labelContent: eventName,
-       labelAnchor: new google.maps.Point(20, 0),
+       labelAnchor: new google.maps.Point(60, 0),
        labelClass: "labels", // the CSS class for the label
        labelStyle: {opacity: 0.75}
      });
