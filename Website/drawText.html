@@ -1,0 +1,95 @@
+
+
+<html>
+<head>
+ <style type="text/css">
+   .labels {
+     color: red;
+     background-color: white;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     text-align: center;
+     width: 40px;     
+     border: 2px solid black;
+     white-space: nowrap;
+   }
+ </style>
+
+<style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js " type="text/javascript"></script>
+<script>
+
+var userX;
+var userY;
+var userPoint;
+
+
+var floatingText = "Default Text";
+
+function initialize() {
+
+  var mapOptions = {
+    zoom: 15,
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+	map.setCenter(new google.maps.LatLng(0,0));
+	
+	//Centers the map at the users current location
+        navigator.geolocation.getCurrentPosition(centerMapUser);
+}
+
+function centerMapUser(position){
+	//Centers map at the user's current location
+	userX = position.coords.latitude;
+	userY = position.coords.longitude;
+
+	map.setCenter(new google.maps.LatLng(userX,userY));
+
+	userPoint = new google.maps.LatLng(userX, userY);
+
+	drawText('<div id="content">'+ '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large </p>', userPoint);
+}	
+
+
+function drawText(eventText, eventLocation) {
+	
+
+ var infowindow = new google.maps.InfoWindow({
+      content: eventText
+  });
+
+  var marker = new MarkerWithLabel({
+       position: userPoint,
+       draggable: true,
+       raiseOnDrag: true,
+       map: map,
+       labelContent: "$425K",
+       labelAnchor: new google.maps.Point(userX, userY),
+       labelClass: "labels", // the CSS class for the label
+       labelStyle: {opacity: 0.75}
+     });
+
+}
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+</script>
+</head>
+
+<body>
+    <div id="map-canvas"></div>
+  </body>
+
+</html>
