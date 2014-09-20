@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html>
-<body>
+<head>
 
 <p id="demo">Click the button to get your position:</p>
 
 <button onclick="getLocation()">Try It</button>
-
-<div id="mapholder"></div>
-
-<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2eQg69KGsgnVxMR51XrDRnIv4uL21suI">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: { lat: -34.397, lng: 150.644},
-          zoom: 8
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
+<style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
       }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
 <script>
 var x = document.getElementById("demo");
 var eventX = 50;
 var eventY = -80;
-var userRadius = 10;
+
+var userX;
+var userY;
+
+var userRadius = 100;
+var map;
+
+function initialize() {
+
+  var mapOptions = {
+    zoom: 8,
+    //center: new google.maps.LatLng(eventX, eventY)
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+	map.setCenter(new google.maps.LatLng(0,0));
+	
+	//Centers the map at the users current location
+        navigator.geolocation.getCurrentPosition(centerMapUser,showError);
+}
 
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(findRadius,showError);
+	//navigator.geolocation.getCurrentPosition(initialize, showError);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
 
-function findRadius(position) {
+function centerMapUser(position){
 	var userX = position.coords.latitude;
 	var userY = position.coords.longitude;
+
+	map.setCenter(new google.maps.LatLng(userX,userY));
+}	
+
+function findRadius(position) {
+	//var userX = position.coords.latitude;
+	//var userY = position.coords.longitude;
 
 	//For every event in the database
 	if (eventX < userX + userRadius && eventX > userX - userRadius && eventY < userY + userRadius && eventY > userY- userRadius ){
@@ -50,11 +67,11 @@ function findRadius(position) {
 		if (distR > userRadius){
 			//Add event to the user's search array of events
 		}
+		x.innerHTML = distR;
 	}
 	else {
 		x.innerHTML = "User is not within range";
 	}
-
 }
 function showError(error) {
     switch(error.code) {
@@ -72,7 +89,14 @@ function showError(error) {
             break;
     }
 }
-</script>
 
-</body>
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+</script>
+</head>
+
+ <body>
+    <div id="map-canvas"></div>
+  </body>
 </html>
