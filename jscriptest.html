@@ -22,14 +22,13 @@ var eventY = -80;
 var userX;
 var userY;
 
-var userRadius = 100;
+var userRadius = 500;
 var map;
 
 function initialize() {
 
   var mapOptions = {
-    zoom: 8,
-    //center: new google.maps.LatLng(eventX, eventY)
+    zoom: 15,
   };
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
@@ -37,9 +36,11 @@ function initialize() {
 	
 	//Centers the map at the users current location
         navigator.geolocation.getCurrentPosition(centerMapUser,showError);
+	drawCircle(eventX, eventY, userRadius);
 }
 
 function getLocation() {
+	//Makes sure the geolocation is working
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(findRadius,showError);
 	//navigator.geolocation.getCurrentPosition(initialize, showError);
@@ -49,8 +50,9 @@ function getLocation() {
 }
 
 function centerMapUser(position){
-	var userX = position.coords.latitude;
-	var userY = position.coords.longitude;
+	//Centers map at the user's current location
+	userX = position.coords.latitude;
+	userY = position.coords.longitude;
 
 	map.setCenter(new google.maps.LatLng(userX,userY));
 }	
@@ -64,7 +66,7 @@ function findRadius(position) {
 		var distX = eventX - userX;
 		var distY = eventY - userY;
 		var distR = Math.sqrt(distX^2 + distY^2);
-		if (distR > userRadius){
+		if (distR < userRadius){
 			//Add event to the user's search array of events
 		}
 		x.innerHTML = distR;
@@ -73,6 +75,26 @@ function findRadius(position) {
 		x.innerHTML = "User is not within range";
 	}
 }
+
+function drawCircle(circleX, circleY, circleRadius){
+	var circleCenter = new google.maps.LatLng(circleX, circleY);
+	var options = {
+      		strokeColor: '#FF0000',
+      		strokeOpacity: 0.8,
+      		strokeWeight: 2,
+      		fillColor: '#FF0000',
+      		fillOpacity: 0.35,
+      		map: map,
+      		center: circleCenter,
+      		radius: circleRadius
+    };
+	circle = new google.maps.Circle(options);
+
+
+            x.innerHTML = "circle prints"
+}
+
+
 function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
