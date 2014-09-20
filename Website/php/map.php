@@ -1,5 +1,5 @@
 <?php
-	include_once("../include_html/displayMap.html");
+	include_once("include_html/displayMap.html");
 	$connection = mysqli_connect("mysql.freehostingnoads.net","u476951036_cris","HQz8XvH3ZC","u476951036_login");     
 	if (mysqli_connect_errno()) {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
