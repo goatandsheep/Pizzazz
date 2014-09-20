@@ -66,7 +66,16 @@
       <li><a href="#" class="scroll-link" data-id="about">About Us</a></li>
       <li><a href="#" class="scroll-link" data-id="services">Local Happenings!</a></li>
       <li><a href="#" class="scroll-link" data-id="contact">Contact Us</a></li>
-      <li><a style="cursor:pointer;" id="loginpopup">Login / Signup</a></li>
+     <?php
+     	session_start();
+     	$defaultContent='<li><a style="cursor:pointer;" id="loginpopup">Login / Signup</a></li>';
+     	$loggedInContent='<li><a style="cursor:pointer;" >Welcome '.$_SESSION["username"].'</a></li>';
+     	if($_SESSION["username"]==""){
+     		echo $defaultContent;	
+     	}else{
+     		echo $loggedInContent;
+     	}
+     ?> 
       <li class="dropdown">
         <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <strong>Guest</strong> <b class="caret"></b></a>-->
         <ul class="dropdown-menu">
@@ -98,7 +107,7 @@
               <h4 class="modal-title" id="myModalLabel1">Login to Pizzazz</h4>
             </div>
           <div class="modal-body" id="login_details">
-              <form class="loginForm" action="php/login.php" method="post">
+              <form class="loginForm" action="php/login.php" method="post" id="loginForm">
                 *<span style="font-weight:bold;">Username</span><br />
                 <input type="text" placeholder="" name="username" /><br /></br>
                 *<span style="font-weight:bold;" >Password</span><br />
@@ -106,7 +115,7 @@
             </form>
             </div>
             <div class="modal-footer" >
-          <input style="float: left" type="button" class="btn btn-success" value="Log In" /> 
+          <input style="float: left" type="submit" class="btn btn-success" value="Log In" form="loginForm" /> 
               <span class="fp-link"> <a href="#">Forgot Password?</a></span>
               <br></br>
           <span> Not a member yet?</span>
@@ -126,7 +135,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title" id="myModalLabel2">Sign Up on Landing</h4>
           </div>
-          <form onsubmit="checkForm()" method="post" action="php/signup.php">
+          <form onsubmit="checkForm()" method="post" action="php/signup.php" id="signupForm">
             <div class="modal-body" id="signup_details">
                 <span >Desired Username</span>
                 <input type="text" placeholder="Username" name="username" /> </br></br>
@@ -139,7 +148,7 @@
                 <span >You can only submit if your passwords match and your e-mail is the right format.</span>
             </div>
             <div class="modal-footer" >
-            <input style="button: left" type="submit" class="btn btn-success"  value="Submit" />
+            <input style="button: left" type="submit" class="btn btn-success"  value="Submit" form="signupForm"/>
                 <span>&nbsp;&nbsp;&nbsp; Already a member? </span><span id="login-link" class="text-info" style="cursor:pointer;">  Login now  </span> 
           </div>
         </form>
@@ -180,7 +189,7 @@
 
 
 
-						<p style="font-size:50pt;"> pizzazz</p>
+						<p style="font-size:50pt;"> pizzazz</p> 
 						<p style="font-size:26pt;"> location-based interactions</p>
 
 						<br><br/>

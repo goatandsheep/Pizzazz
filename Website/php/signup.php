@@ -24,7 +24,7 @@
 	  if (mysqli_num_rows($query) != 0)
 	  { 
 			$_SESSION["loginStatus"]="userExists";
-			header("Location: /index.php");
+			header("Location: /index.html");
 	  }
 	
 	  else
@@ -34,7 +34,7 @@
 			$result = mysqli_query($connection,$addUser);
 			$_SESSION["username"]=$username;
 			$_SESSION["loginStatus"]="signupGood"; 
-			header("Location: /index.php");
+			header("Location: /index.html");
 	  }
 	 
 
