@@ -15,14 +15,15 @@
 	$evenName = cleanStringFromInjection ($evenName);
 	$date = (string)date("Y-m-d h:i:s a", time());
 	
-	$XPos=12312312300001;
-	$YPos=12312312300000001;
+	$XPos=$_POST['XPos'];
+	$YPos=$_POST['YPos'];
 	
 	
 	 $sendSlice = "INSERT INTO Slices (Username,SliceName,SliceDescription,DatePosted,XPos,YPos) VALUES ('$sessionUsername','$sliceName','$sliceDescription','$date','$XPos','$YPos')";
 	 $result = mysqli_query($connection,$sendSlice);	
 	 			
-			
+	header('Location: ../include_html/redirect.html');	
+	
 	function cleanStringFromInjection($dirtyString){
 		$cleanString =  str_replace("'","",$dirtyString);
 		$cleanString =  str_replace(";","",$cleanString);

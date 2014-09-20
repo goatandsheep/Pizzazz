@@ -26,21 +26,21 @@
 		if($UpperUsername == $row['UpperUser'] AND validate_password($enteredPassword,$row['Pass'])){ 
 				$_SESSION["username"]=$row["Username"];
 				$_SESSION["loginStatus"]="passGood"; 
-				//header('Location: /index.php' );
-				echo "good LOGIN";
+				header('Location: /index.html' );
+				//echo "good LOGIN";
 			}else{
 				$_SESSION["loginStatus"]="passWrong";
 				$_SESSION["username"]="";
-				echo "badlogin";		
-//				header('Location: /index.php');
+				//echo "badlogin";		
+				header('Location: /index.html');
 			
 		} 
 		$userExists=true;
 	}
 	if(!$userExists){ // user does not exist
 		$_SESSION["loginStatus"]="passWrong"; 
-		//header('Location: /index.php');
-					echo "badlogin"	;		
+		header('Location: /index.html');
+					//echo "badlogin"	;		
 	}
 
 	function cleanStringFromInjection($dirtyString){

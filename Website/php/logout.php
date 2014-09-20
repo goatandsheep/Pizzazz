@@ -1,6 +1,6 @@
 <?php
 session_start();
 $_SESSION['username']="";
-header( 'Location: /index.php' );
+header( 'Location: /index.html' );
 
 ?>

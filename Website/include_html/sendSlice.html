@@ -1,5 +1,30 @@
-<form class="loginForm" action="php/sendSlice.php" method="post">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+
+<script>
+var x = document.getElementById("XPosID");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    document.getElementById("XPosID").value=position.coords.latitude;
+	document.getElementById("YPosID").value=position.coords.longitude;	
+	delay(1);
+}
+
+</script>
+
+
+<form class="loginForm" action="php/sendSlice.php" method="post" onclick="getLocation()">
 	<label>Event Name</label><input type="text" name="eventName">
 	<label>Description</label><input type="text" name="eventDescription"> 
-	<input type="submit" value="Send">
+	<label style="display:none">XPos</label><input type="textarea" name="XPos" id="XPosID" style="display:none"> 
+	<label style="display:none">YPos</label><input type="textarea" name="YPos" id="YPosID" style="display:none">  
+	<input type="submit" value="Send"">
 </form>

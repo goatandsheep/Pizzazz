@@ -1,0 +1,30 @@
+
+<script >
+window.onload = getLocation();
+var userX;
+var userY;
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+    }
+}
+
+function showPosition(position){
+	userX = position.coords.latitude;
+	userY = position.coords.longitude;
+
+	redirect();
+}
+
+function redirect(){
+	window.location.replace("../php/map.php?xPos="+userX+"&yPos="+userY);
+
+}
+
+while(userX){
+	redirect();
+}
+</script>
+

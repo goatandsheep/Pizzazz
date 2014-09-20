@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+  <script type="text/javascript">
+
+  function checkForm()
+  {
+    var username=form.username.value;
+    var email=form.email.value;
+    var pass1=form.password.value;
+    var pass2=form.re_password.value;
+    var re = \w+[@]{1}(\w)+[.]{1}(\w)+;
+
+    if((username.length <= 0)|(pass1 != pass2)|(!re.test(email))) {
+      alert("Error with signup");
+       return false;
+    }
+    return true;
+  }
+
+</script>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Landing Page Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom Google Web Font -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Add custom CSS here -->
+    <link href="css/custom.css" rel="stylesheet">
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/custom.js"></script>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#"> <i>Pizzazz </i></a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#" class="scroll-link" data-id="home">Home</a></li>
+      <li><a href="#" class="scroll-link" data-id="about">About Us</a></li>
+      <li><a href="#" class="scroll-link" data-id="services">Local Happenings!</a></li>
+      <li><a href="#" class="scroll-link" data-id="contact">Contact Us</a></li>
+     <?php
+     	session_start();
+     	$defaultContent='<li><a style="cursor:pointer;" id="loginpopup">Login / Signup</a></li>';
+     	$loggedInContent='<li><a style="cursor:pointer;" >Welcome '.$_SESSION["username"].'</a></li>';
+     	if($_SESSION["username"]==""){
+     		echo $defaultContent;	
+     	}else{
+     		echo $loggedInContent;
+     	}
+     ?> 
+      <li class="dropdown">
+        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <strong>Guest</strong> <b class="caret"></b></a>-->
+        <ul class="dropdown-menu">
+          <li><a href="#">My Account</a></li>
+          <li><a href="#">Transactions</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!--
+    <form class="navbar-form navbar-right" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    -->
+  </div><!-- /.navbar-collapse -->
+  </nav>
+  <!-- Code for Login / Signup Popup -->
+  <!-- Modal Log in -->
+  
+  <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 150px;">
+      <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel1">Login to Pizzazz</h4>
+            </div>
+          <div class="modal-body" id="login_details">
+              <form class="loginForm" action="php/login.php" method="post" id="loginForm">
+                *<span style="font-weight:bold;">Username</span><br />
+                <input type="text" placeholder="" name="username" /><br /></br>
+                *<span style="font-weight:bold;" >Password</span><br />
+                <input type="password" placeholder="Password" name="password" /><br />
+            </form>
+            </div>
+            <div class="modal-footer" >
+          <input style="float: left" type="submit" class="btn btn-success" value="Log In" form="loginForm" /> 
+              <span class="fp-link"> <a href="#">Forgot Password?</a></span>
+              <br></br>
+          <span> Not a member yet?</span>
+          <span id="signup-link" style="cursor:pointer;" class="text-info">Sign Up!</span>
+            </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+ <!--Modal Login Ends -->
+
+ <!-- Modal Sign-up Starts -->
+ 
+  <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+      <div class="modal-dialog" style="margin-top: 100px;">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel2">Sign Up on Landing</h4>
+          </div>
+          <form onsubmit="checkForm()" method="post" action="php/signup.php" id="signupForm">
+            <div class="modal-body" id="signup_details">
+                <span >Desired Username</span>
+                <input type="text" placeholder="Username" name="username" /> </br></br>
+                *<span >E-mail</span>
+                <input type="text" placeholder="example@gmail.com" name="email" /></br></br>
+                *<span >Password</span>
+                <input type="password" placeholder="Password" name="password" /></br></br>
+                *<span >Password Re-Type</span>
+                <input type="password" placeholder="Re-type Password" name="re_password" />
+                <span >You can only submit if your passwords match and your e-mail is the right format.</span>
+            </div>
+            <div class="modal-footer" >
+            <input style="button: left" type="submit" class="btn btn-success"  value="Submit" form="signupForm"/>
+                <span>&nbsp;&nbsp;&nbsp; Already a member? </span><span id="login-link" class="text-info" style="cursor:pointer;">  Login now  </span> 
+          </div>
+        </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <!-- Modal Sign up ends! -->
+  <!-- End code for Login / Signup Popup -->
+
+    <div class="intro-header" id="home">
+		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					  <!-- Indicators -->
+					  <ol class="carousel-indicators">
+					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+					    <!--<li data-target="#carousel-example-generic" data-slide-to="2"></li>-->
+					  </ol>
+
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+					    <div class="item active">
+					      <img src="img/BW.png" alt="First Image">
+					      <div class="carousel-caption">
+
+
+						<p style="font-size:50pt;"> pizzazz</p>
+						<p style="font-size:26pt;"> location-based interactions</p>
+
+						<br><br/>
+						<br><br/>
+						<br><br/>
+
+					      </div>
+					    </div>
+					    <div class="item">
+					      <img src="img/plane.jpg" alt="Second Image">
+					      <div class="carousel-caption">
+
+
+
+						<p style="font-size:50pt;"> pizzazz</p> 
+						<p style="font-size:26pt;"> location-based interactions</p>
+
+						<br><br/>
+						<br><br/>
+						<br><br/>
+
+					      </div>
+					    </div>
+					    <!--<div class="item">
+					      <img src="img/img3.jpg" alt="Third Image">
+					      <div class="carousel-caption">
+					        Third Image
+					      </div>
+					    </div>-->
+					  </div>
+
+					  <!-- Controls -->
+					  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+					    <span class="glyphicon glyphicon-chevron-left"></span>
+					  </a>
+					  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+					    <span class="glyphicon glyphicon-chevron-right"></span>
+					  </a>
+					</div>
+
+        <!-- /.container -->
+
+    </div>
+    <!-- /.intro-header -->
+
+
+
+
+<div class="content-section-a" id="about">
+        <div class="container">
+            <div class="row">
+                <!--<div class="col-lg-5 col-sm-2">-->
+		<div class="col-lg- col-lg-offset-0 col-sm-push-3  col-sm-6">
+                    <div class="clearfix"></div>
+		    <h2><i>pizzaz is an online bulletin board for your local community</i></h2>
+			</body>
+			</html>
+		    
+			<p class="lead" style="font-size:22pt;">	post it here!	</p>
+		    <h2 class="section-heading">
+
+			<p class="lead" style="font-size:22pt;">explore local happenings</p>
+			
+                    <p class="lead" style="font-size:22pt;">find something local to share </p>
+			
+                </div>
+		
+		<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <!--<div class="col-lg-5 col-lg-offset-2 col-sm-6">-->
+                    <img class="img-responsive" src="img/Prox.png" alt="">
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+
+
+    <div class="content-section-b" id="services">
+
+        <div class="container">
+
+            <div class="row">
+		<div class="col-lg- col-lg-offset-0 col-sm-push-3  col-sm-6">
+                <!--<div class="col-lg-5 col-sm-6">-->
+                    <h2 class="section-heading">
+                    <p class="lead"></p>
+
+		  <em>what's hot?</em>
+
+		  <p class="lead"></p>
+
+		  Map of the area ... Local Events
+
+                </div>
+
+
+		<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <!--<div class="col-lg-5 col-lg-offset-2 col-sm-6">-->
+                    <img class="img-responsive" src="img/post.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    
+    
+    
+    
+    <div class="content-section-a" id="services">
+        <div class="container">
+            <div class="row">
+                <!--<div class="col-lg-5 col-sm-2">-->
+		<div class="col-lg- col-lg-offset-0 col-sm-push-3  col-sm-6">
+                    <div class="clearfix"></div>
+		    <h2><i>Around the world</i></h2>
+			</body>
+			</html>
+		    
+			<p class="lead" style="font-size:22pt;">	post it here!	</p>
+		    <h2 class="section-heading">
+
+			<p class="lead" style="font-size:22pt;">explore it!</p>
+			
+                    <p class="lead" style="font-size:22pt;">find something </p>
+			
+                </div>
+		
+		<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <!--<div class="col-lg-5 col-lg-offset-2 col-sm-6">-->
+                    <img class="img-responsive" src="img/world2.png" alt="">
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    <!-- /.content-section-a -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="#home">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
