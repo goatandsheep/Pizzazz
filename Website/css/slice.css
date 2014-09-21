@@ -1,4 +1,16 @@
-#username{
+.username{
 	font-weight: bold;
+	color: #000000;
+}
+.location{
+	font-weight: normal;
+	color: #999999;
+}
+#message{
+	font-weight: normal;
+	color: black;
+}
+#uplive{
+	font-style: italic;
 	color: #999999;
 }

@@ -1,6 +1,19 @@
-
+<link rel="stylesheet" href="../css/slice.css">
 <hr>
-<img src="https://secure.gravatar.com/avatar/6275d97cde41c8c0d2f0941caf42abf7" style="float:left">
-<b>Username</b> - Location Title (Location Description)
-<p>Messagessagessagessagessagessagessagessagessagessag</p>
-<a onclick="jsfunction()" href="javascript:void(0);">Uplink</a> 2014-09-20
+<body>
+<?php
+   $hash=md5('yayomx@gmail.com');
+   $gravatar_url='https://secure.gravatar.com/avatar/' . $hash;
+   echo '<img src="' . $gravatar_url . '" style="float:left">';
+?>
+</body>
+<table>
+    <td class="username">Username</td>
+    <td> - </td>  	
+    <td class="location" id="loc_title">Event Title</td>
+    <td>(</td>
+    <td class="location" id="loc_desc">Event Description</td>
+    <td>)</td>
+</table>
+<td id="message">Messagessagessagessagessagessagessagessagessagessage</td><br>
+<a onclick="jsfunction()" href="javascript:void(0);" id=uplive>Uplive</a> (<time datetime="2014-09-20 18:30">One minute ago</time>)
