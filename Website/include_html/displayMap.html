@@ -15,6 +15,13 @@
         width:90%;
         float:left;
       }  
+      .labels{
+	      font-size:16px;
+	      font-style: italic;
+	      font-family: Didot, "Didot LT STD", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	      background-color:rgba(237,10,86,0.4);
+	      border-radius: 4px;
+		  }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js " type="text/javascript"></script>
@@ -28,7 +35,7 @@ var userX;
 var userY;
 
 var userRadius = 20;
-var eventRadius = 500000;
+var eventRadius = 2000;
 var map;
 
 
@@ -38,11 +45,11 @@ var map;
 function drawCircle(circleX, circleY, circleRadius){
 	var circleCenter = new google.maps.LatLng(circleX, circleY);
 	var options = {
-      		strokeColor: '#FF0000',
-      		strokeOpacity: 0.8,
-      		strokeWeight: 2,
-      		fillColor: '#FF0000',
-      		fillOpacity: 0.35,
+      		strokeColor: '#33CCFF',
+      		strokeOpacity: 0.6,
+      		strokeWeight: 5,
+      		fillColor: '#33CCFF',
+      		fillOpacity: 0.25,
       		map: map,
       		center: circleCenter,
       		radius: circleRadius
@@ -58,8 +65,8 @@ function drawCircleEvent(circleX, circleY, circleRadius){
       		strokeColor: '#FF0000',
       		strokeOpacity: 0.8,
       		strokeWeight: 2,
-      		fillColor: '#FFFFFA',
-      		fillOpacity: 0.35,
+      		fillColor: '#FF0000',
+      		fillOpacity: 0.3,
       		map: map,
       		center: circleCenter,
       		radius: circleRadius
@@ -89,7 +96,7 @@ function showError(error) {
 
 function drawText(eventName, eventText, eventX, eventY) {
 	//Given event Name, Text, and location will output a text box and pin on google maps at that location with that name and text.
-	console.log("Run");
+	//console.log("Run");
 	
 	eventPoint = new google.maps.LatLng(eventX, eventY);
  var infowindow = new google.maps.InfoWindow({
@@ -103,9 +110,9 @@ function drawText(eventName, eventText, eventX, eventY) {
         raiseOnDrag: false,
        map: map,
        labelContent: eventName,
-       labelAnchor: new google.maps.Point(60, 0),
+       labelAnchor: new google.maps.Point(40, 0),
        labelClass: "labels", // the CSS class for the label
-       labelStyle: {opacity: 0.75}
+       labelStyle: {opacity: 1}
      });
 
 var textWindow = new google.maps.InfoWindow({
@@ -124,7 +131,7 @@ var textWindow = new google.maps.InfoWindow({
 function initialize() {
 
   var mapOptions = {
-    zoom: 12,
+    zoom: 16,
   };
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
