@@ -162,6 +162,11 @@ p.copyright {
 }
 /* End Modified Bootstrap */
 
+.pizza-logo {
+	width: 30px;
+	height: 30px;
+}
+
 
 #contact {
 	background-image:url('../img/contact.jpg');
